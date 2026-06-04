@@ -1,5 +1,5 @@
 function UserProfile({ user }) {
-    return (
+  return (
     <div className="profile-container">
       <div className="profile-header">
         <img
@@ -37,7 +37,7 @@ function UserProfile({ user }) {
           <span className="stat-label">Repositories</span>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 
