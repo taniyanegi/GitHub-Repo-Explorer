@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useGitHub } from './hooks/useGitHub';
 import SearchBar from './components/SearchBar';
 import UserProfile from './components/UserProfile';
@@ -18,6 +19,12 @@ function App() {
     searchUser,
     loadMoreRepos
   } = useGitHub();
+
+  useEffect(() => {
+    document.title = user
+      ? `${user.login} — GitHub Explorer`
+      : 'GitHub Explorer';
+  }, [user]);
 
   return (
     <div className="app">

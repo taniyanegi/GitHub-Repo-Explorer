@@ -14,7 +14,7 @@ function SearchBar({ onSearch, loading }) {
         <div className="search-container">
             <h1 className="app-title">GitHub Explorer</h1>
             <p className="app-subtitle">Search any GitHub user to explore their profile and repositories</p>
-            <div className="search-bar">
+            <form className="search-bar" onSubmit={handleSubmit}>
                 <input
                     type="text"
                     className="search-input"
@@ -22,15 +22,17 @@ function SearchBar({ onSearch, loading }) {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     disabled={loading}
+                    autoComplete="off"
+                    spellCheck="false"
                 />
                 <button
+                    type="submit"
                     className="search-button"
-                    onClick={handleSubmit}
                     disabled={loading || !input.trim()}
                 >
                     {loading ? 'Searching...' : 'Search'}
                 </button>
-            </div>
+            </form>
         </div>
     );
 }
