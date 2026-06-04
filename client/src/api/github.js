@@ -12,9 +12,9 @@ export async function getUser(username) {
   return response.data;
 }
 
-export async function getUserRepos(username, page = 1) {
+export async function getUserRepos(username, page = 1, sort = 'updated') {
   const response = await api.get(`/user/${username}/repos`, {
-    params: { page }
+    params: { page, sort }
   });
   return response.data;
 }

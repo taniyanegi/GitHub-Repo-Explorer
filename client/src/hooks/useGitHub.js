@@ -8,6 +8,7 @@ export function useGitHub() {
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(false);
+    const [sortBy, setSortBy] = useState('updated');
 
     const searchUser = useCallback(async (username) => {
         if (!username.trim()) return;
@@ -22,7 +23,7 @@ export function useGitHub() {
             const userData = await getUser(username);
             setUser(userData);
 
-            const repoData = await getUserRepos(username, 1);
+            const repoData = await getUserRepos(username, 1, sortBy);
             setRepos(repoData.repos);
             setHasMore(repoData.repos.length === 30);
 
@@ -37,7 +38,7 @@ export function useGitHub() {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [sortBy]);
 
     const loadMoreRepos = useCallback(async () => {
         if (!user || loading) return;
@@ -46,7 +47,7 @@ export function useGitHub() {
         setLoading(true);
 
         try {
-            const repoData = await getUserRepos(user.login, nextPage);
+            const repoData = await getUserRepos(user.login, nextPage, sortBy);
             setRepos(prev => [...prev, ...repoData.repos]);
             setPage(nextPage);
             setHasMore(repoData.repos.length === 30);
@@ -55,7 +56,7 @@ export function useGitHub() {
         } finally {
             setLoading(false);
         }
-    }, [user, page, loading]);
+    }, [user, page, loading, sortBy]);
 
     return {
         user,
@@ -63,6 +64,8 @@ export function useGitHub() {
         loading,
         error,
         hasMore,
+        sortBy,
+        setSortBy,
         searchUser,
         loadMoreRepos
     };

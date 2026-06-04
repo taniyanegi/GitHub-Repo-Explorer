@@ -1,20 +1,6 @@
-import { useState } from 'react';
 import RepoCard from './RepoCard';
 
-function RepoList({ repos, loading, hasMore, onLoadMore }) {
-    const [sortBy, setSortBy] = useState('updated');
-
-    function getSortedRepos() {
-        const sorted = [...repos];
-        if (sortBy === 'stars') {
-            sorted.sort((a, b) => b.stargazers_count - a.stargazers_count);
-        } else if (sortBy === 'name') {
-            sorted.sort((a, b) => a.name.localeCompare(b.name));
-        } else {
-            sorted.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-        }
-        return sorted;
-    }
+function RepoList({ repos, loading, hasMore, onLoadMore, sortBy, onSortChange }) {
 
     if (repos.length === 0) return null;
 
@@ -29,7 +15,7 @@ function RepoList({ repos, loading, hasMore, onLoadMore }) {
                     <select
                         className="sort-select"
                         value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value)}
+                        onChange={(e) => onSortChange(e.target.value)}
                     >
                         <option value="updated">Last Updated</option>
                         <option value="stars">Stars</option>
@@ -39,7 +25,7 @@ function RepoList({ repos, loading, hasMore, onLoadMore }) {
             </div>
 
             <div className="repo-list">
-                {getSortedRepos().map(repo => (
+                {repos.map(repo => (
                     <RepoCard key={repo.id} repo={repo} />
                 ))}
             </div>

@@ -13,6 +13,8 @@ function App() {
     loading,
     error,
     hasMore,
+    sortBy,
+    setSortBy,
     searchUser,
     loadMoreRepos
   } = useGitHub();
@@ -40,6 +42,8 @@ function App() {
             loading={loading}
             hasMore={hasMore}
             onLoadMore={loadMoreRepos}
+            sortBy={sortBy}
+            onSortChange={setSortBy}
           />
         </>
       )}
