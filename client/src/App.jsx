@@ -5,7 +5,9 @@ import UserProfile from './components/UserProfile';
 import RepoList from './components/RepoList';
 import SkeletonLoader from './components/SkeletonLoader';
 import ErrorMessage from './components/ErrorMessage';
+import LanguageChart from './components/LanguageChart';
 import './App.css';
+
 
 function App() {
   const {
@@ -44,6 +46,7 @@ function App() {
       {user && (
         <>
           <UserProfile user={user} />
+          {repos.length > 0 && <LanguageChart repos={repos} />}
           <RepoList
             repos={repos}
             loading={loading}
